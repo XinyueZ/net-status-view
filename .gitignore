@@ -1,0 +1,29 @@
+#For this file, you might execute following codes after update your ignore file.
+#git rm -r --cached .
+#git add .
+
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+*.properties
+.idea/
+gradle/*.*
+gradle/
+gradle*
+!gradle.properties
+
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+
