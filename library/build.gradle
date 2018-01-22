@@ -35,6 +35,33 @@ android {
     dataBinding {
         enabled = true
     }
+
+
+    lintOptions {
+        htmlReport false
+        abortOnError false
+    }
+
+    testOptions { // <-- You need this
+        unitTests {
+            returnDefaultValues = true
+            includeAndroidResources = true
+        }
+
+        unitTests.all {
+            // All the usual Gradle options.
+            testLogging {
+                events "passed", "skipped", "failed", "standardOut", "standardError"
+                outputs.upToDateWhen { false }
+                showStandardStreams = true
+            }
+            reports.html.enabled = true
+            reports.junitXml.enabled = true
+            maxParallelForks = 5
+            forkEvery = 200
+        }
+
+    }
 }
 
 dependencies {
