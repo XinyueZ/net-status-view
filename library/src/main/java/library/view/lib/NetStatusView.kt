@@ -8,7 +8,6 @@ import android.content.Context.*
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.TypedArray
-import android.databinding.BindingAdapter
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.CONNECTIVITY_ACTION
@@ -23,30 +22,31 @@ import android.support.annotation.ArrayRes
 import android.support.annotation.ColorInt
 import android.support.annotation.DimenRes
 import android.support.annotation.StringRes
+import android.support.v4.content.res.ResourcesCompat
 import android.telephony.TelephonyManager
 import android.telephony.TelephonyManager.*
 import android.util.AttributeSet
 import android.util.TypedValue.COMPLEX_UNIT_PX
 import android.view.LayoutInflater
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import library.view.lib.NetStatusView.Companion.NET_2G
 import library.view.lib.NetStatusView.Companion.NET_3G
 import library.view.lib.NetStatusView.Companion.NET_4G
 import library.view.lib.NetStatusView.Companion.NET_UNKNOWN
 import library.view.lib.NetStatusView.Companion.NET_WIFI
 import library.view.lib.NetStatusView.Companion.UNKNOWN_STRENGTH
-import library.view.lib.databinding.NetStatusViewBinding
 
 open class NetStatusView : LinearLayout {
     internal var strengthLevelCount = 4
-    private lateinit var binding: NetStatusViewBinding
     internal var netStrengthLevelResIds: TypedArray? = null
         set(value) {
             field = value
             strengthLevelCount = value?.length() ?: 4
         }
     @ColorInt
-    internal var labelColor: Int = Color.WHITE
+    internal var labelColor: Int = Color.BLACK
     @DimenRes
     internal var labelSizeResId: Int =
         DEFAULT_LABEL_SIZE
@@ -75,7 +75,7 @@ open class NetStatusView : LinearLayout {
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init()
+        init(attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
@@ -83,7 +83,7 @@ open class NetStatusView : LinearLayout {
         attrs,
         defStyleAttr
     ) {
-        init()
+        init(attrs)
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -94,22 +94,39 @@ open class NetStatusView : LinearLayout {
         defStyleAttr,
         defStyleRes
     ) {
-        init()
+        init(attrs)
     }
 
-    private fun init() {
+    private fun init(attrs: AttributeSet? = null) {
         with(LayoutInflater.from(context)) {
-            /**
-             * See. [R.layout.net_status_view] .xml
-             */
-            binding = NetStatusViewBinding.inflate(this, this@NetStatusView, true)
+            inflate(R.layout.net_status_view, this@NetStatusView, true)
+        }
+        if (attrs != null) {
+            with(context.theme.obtainStyledAttributes(attrs, R.styleable.nsv, 0, 0)) {
+                setUp(
+                    getResourceId(R.styleable.nsv_strengthLevelResIds, 0),
+                    ResourcesCompat.getColor(
+                        resources,
+                        getResourceId(
+                            R.styleable.nsv_textStatusColor, 0
+                        ), context.theme
+                    ),
+                    getResourceId(R.styleable.nsv_textStatusSize, DEFAULT_LABEL_SIZE),
+                    getResourceId(R.styleable.nsv_textWifi, 0),
+                    getResourceId(R.styleable.nsv_text2G, 0),
+                    getResourceId(R.styleable.nsv_text3G, 0),
+                    getResourceId(R.styleable.nsv_text4G, 0),
+                    getResourceId(R.styleable.nsv_textUnknown, 0)
+                )
+                recycle()
+            }
         }
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
 
-        with(binding.netTypeTv) {
+        with(findViewById<TextView>(R.id.net_type_tv)) {
             if (labelSizeResId > 0) {
                 setTextSize(COMPLEX_UNIT_PX, resources.getDimension(labelSizeResId))
             }
@@ -139,42 +156,30 @@ open class NetStatusView : LinearLayout {
     }
 
     private fun updateNetworkStatus() {
-        with(binding) {
-            with(context) {
-                with(
-                    (getSystemService(TELEPHONY_SERVICE) as TelephonyManager)
-                        .getNetStatus(applicationContext as Application, this@NetStatusView)
-                ) {
-                    networkStatus = this
-                    netTypeTv.text = type
+        with(context) {
+            with(
+                (getSystemService(TELEPHONY_SERVICE) as TelephonyManager)
+                    .getNetStatus(applicationContext as Application, this@NetStatusView)
+            ) {
+                networkStatus = this
+                findViewById<TextView>(R.id.net_type_tv).text = type
 
-                    with(netStrengthLevelIv) {
-                        netStrengthLevelResIds?.run {
-                            if (strength in 0..(strengthLevelCount - 1)) {
-                                visibility = VISIBLE
-                                setImageResource(getResourceId(strength, -1))
-                                return
-                            }
+                with(findViewById<ImageView>(R.id.net_strength_level_iv)) {
+                    contentDescription = type
+                    netStrengthLevelResIds?.run {
+                        if (strength in 0..(strengthLevelCount - 1)) {
+                            visibility = VISIBLE
+                            setImageResource(getResourceId(strength, -1))
+                            return
                         }
-                        visibility = GONE
                     }
+                    visibility = GONE
                 }
             }
         }
     }
 }
 
-@BindingAdapter(
-    value = [
-        "strengthLevelResIds",
-        "textColor",
-        "textSizeResId",
-        "textWifi",
-        "text2G",
-        "text3G",
-        "text4G",
-        "textUnknown"]
-)
 fun NetStatusView.setUp(
     @ArrayRes strengthLevelResIds: Int,
     @ColorInt labelColor: Int,
@@ -186,12 +191,13 @@ fun NetStatusView.setUp(
     @StringRes labelUnknown: Int
 ) {
     with(context) {
-        NET_WIFI = getString(labelWifi)
-        NET_2G = getString(label2G)
-        NET_3G = getString(label3G)
-        NET_4G = getString(label4G)
-        NET_UNKNOWN = getString(labelUnknown)
-        netStrengthLevelResIds = resources.obtainTypedArray(strengthLevelResIds)
+        if (labelWifi != 0) NET_WIFI = getString(labelWifi)
+        if (label2G != 0) NET_2G = getString(label2G)
+        if (label3G != 0) NET_3G = getString(label3G)
+        if (label4G != 0) NET_4G = getString(label4G)
+        if (labelUnknown != 0) NET_UNKNOWN = getString(labelUnknown)
+        if (strengthLevelResIds != 0) netStrengthLevelResIds =
+                resources.obtainTypedArray(strengthLevelResIds)
     }
     this.labelSizeResId = labelSizeResId
     this.labelColor = labelColor

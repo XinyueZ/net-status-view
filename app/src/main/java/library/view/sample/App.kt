@@ -1,5 +1,5 @@
 package library.view.sample
 
-import android.support.multidex.MultiDexApplication
+import android.app.Application
 
-class App : MultiDexApplication()
+class App : Application()

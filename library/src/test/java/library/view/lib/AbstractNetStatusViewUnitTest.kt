@@ -3,6 +3,8 @@ package library.view.lib
 import android.content.Context
 import android.net.wifi.WifiManager
 import android.net.wifi.WifiManager.calculateSignalLevel
+import android.support.annotation.ArrayRes
+import android.support.annotation.DimenRes
 import io.kotlintest.properties.Gen
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -16,9 +18,9 @@ abstract class AbstractNetStatusViewUnitTest {
     protected lateinit var net3g: String
     protected lateinit var net4g: String
     protected lateinit var netUnknown: String
-    protected var netStrengthLevelRes: Int = INTI_VAL
+    @ArrayRes protected var netStrengthLevelRes: Int = INTI_VAL
     protected var labelColor: Int = INTI_VAL
-    protected var labelSizeResId: Int = INTI_VAL
+    @DimenRes protected var labelSizeResId: Int = INTI_VAL
     protected lateinit var netStatusView: NetStatusView
 
     @Before

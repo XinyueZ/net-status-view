@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="nsv">
+        <attr name="strengthLevelResIds" format="reference" />
+        <attr name="textStatusColor" format="color" />
+        <attr name="textStatusSize" format="dimension" />
+        <attr name="textWifi" format="string" />
+        <attr name="text2G" format="string" />
+        <attr name="text3G" format="string" />
+        <attr name="text4G" format="string" />
+        <attr name="textUnknown" format="string" />
+
+    </declare-styleable>
+</resources>

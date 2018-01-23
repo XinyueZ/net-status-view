@@ -3,6 +3,8 @@ package library.view.lib
 import android.content.Context
 import android.net.wifi.WifiManager
 import android.net.wifi.WifiManager.calculateSignalLevel
+import android.support.annotation.ArrayRes
+import android.support.annotation.DimenRes
 import android.support.v4.content.res.ResourcesCompat.getColor
 import android.support.v7.content.res.AppCompatResources
 import android.view.View.GONE
@@ -25,8 +27,10 @@ class NetStatusViewUiTest {
     private lateinit var net3g: String
     private lateinit var net4g: String
     private lateinit var netUnknown: String
+    @ArrayRes
     private var netStrengthLevelRes: Int = INTI_VAL
     private var labelColor: Int = INTI_VAL
+    @DimenRes
     private var labelSizeResId: Int = INTI_VAL
     private lateinit var activityCtrl: ActivityController<TestNetStatusViewActivity>
     private val activity: TestNetStatusViewActivity
@@ -41,7 +45,6 @@ class NetStatusViewUiTest {
 
     private fun initUi(): NetStatusView = activity.applyView(R.id.network_status_banner) {
         netStrengthLevelRes = R.array.ic_net_strength_levels
-
         with(this@NetStatusViewUiTest) {
             labelColor = getColor(
                 resources,
@@ -50,13 +53,31 @@ class NetStatusViewUiTest {
             )
             labelSizeResId = R.dimen.ns_view_text_size
         }
-
         with(context) {
             netWifi = getString(R.string.net_status_wifi)
             net2g = getString(R.string.net_status_2g)
             net3g = getString(R.string.net_status_3g)
             net4g = getString(R.string.net_status_4g)
             netUnknown = getString(R.string.net_status_unknown)
+        }
+    }
+
+    @Test
+    fun testPropertiesEqual() {
+        with(netStatusView) {
+            assertEquals(this.labelSizeResId, this@NetStatusViewUiTest.labelSizeResId)
+            assertEquals(this.labelColor, this@NetStatusViewUiTest.labelColor)
+
+            val typArr = resources.obtainTypedArray(this@NetStatusViewUiTest.netStrengthLevelRes)
+            var i = 0
+            val cnt = typArr.length()
+            while (i < cnt) {
+                assertEquals(
+                    typArr.getResourceId(i, 0),
+                    this.netStrengthLevelResIds?.getResourceId(i, 0)
+                )
+                i++
+            }
         }
     }
 

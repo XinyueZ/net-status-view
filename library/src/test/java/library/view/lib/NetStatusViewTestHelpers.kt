@@ -20,7 +20,6 @@ import android.net.NetworkInfo
 import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.support.annotation.IdRes
-import android.support.v7.app.AppCompatActivity
 import android.telephony.TelephonyManager
 import android.view.View
 import io.kotlintest.properties.Gen
@@ -92,7 +91,7 @@ internal val FULL_LIST_OF_NET_UNKNOWN by lazy {
     )
 }
 
-class TestNetStatusViewActivity : AppCompatActivity() {
+class TestNetStatusViewActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.test_net_status_view)
