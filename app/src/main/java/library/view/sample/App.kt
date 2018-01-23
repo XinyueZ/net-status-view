@@ -1,4 +1,4 @@
-package library.view
+package library.view.sample
 
 import android.support.multidex.MultiDexApplication
 

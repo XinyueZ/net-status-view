@@ -1,0 +1,26 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+
+        <import type="library.view.lib.R"/>
+
+    </data>
+
+
+    <library.view.lib.NetStatusView
+        android:id="@+id/network_status_banner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:strengthLevelResIds="@{R.array.ic_net_strength_levels}"
+        app:text2G="@{R.string.net_status_2g}"
+        app:text3G="@{R.string.net_status_3g}"
+        app:text4G="@{R.string.net_status_4g}"
+        app:textColor="@{@color/ns_view_text_color}"
+        app:textSizeResId="@{R.dimen.ns_view_text_size}"
+        app:textUnknown="@{R.string.net_status_unknown}"
+        app:textWifi="@{R.string.net_status_wifi}"/>
+
+</layout>

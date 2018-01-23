@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="ic_net_strength_levels">
+        <item>@drawable/ic_net_strength_level_1</item>
+        <item>@drawable/ic_net_strength_level_2</item>
+        <item>@drawable/ic_net_strength_level_3</item>
+        <item>@drawable/ic_net_strength_level_4</item>
+    </integer-array>
+</resources>

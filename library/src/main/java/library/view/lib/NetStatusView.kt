@@ -1,4 +1,4 @@
-package library.view
+package library.view.lib
 
 import android.annotation.TargetApi
 import android.app.Application
@@ -29,13 +29,13 @@ import android.util.AttributeSet
 import android.util.TypedValue.COMPLEX_UNIT_PX
 import android.view.LayoutInflater
 import android.widget.LinearLayout
-import library.view.NetStatusView.Companion.NET_2G
-import library.view.NetStatusView.Companion.NET_3G
-import library.view.NetStatusView.Companion.NET_4G
-import library.view.NetStatusView.Companion.NET_UNKNOWN
-import library.view.NetStatusView.Companion.NET_WIFI
-import library.view.NetStatusView.Companion.UNKNOWN_STRENGTH
-import library.view.databinding.NetStatusViewBinding
+import library.view.lib.NetStatusView.Companion.NET_2G
+import library.view.lib.NetStatusView.Companion.NET_3G
+import library.view.lib.NetStatusView.Companion.NET_4G
+import library.view.lib.NetStatusView.Companion.NET_UNKNOWN
+import library.view.lib.NetStatusView.Companion.NET_WIFI
+import library.view.lib.NetStatusView.Companion.UNKNOWN_STRENGTH
+import library.view.lib.databinding.NetStatusViewBinding
 
 open class NetStatusView : LinearLayout {
     internal var strengthLevelCount = 4
@@ -48,7 +48,8 @@ open class NetStatusView : LinearLayout {
     @ColorInt
     internal var labelColor: Int = Color.WHITE
     @DimenRes
-    internal var labelSizeResId: Int = DEFAULT_LABEL_SIZE
+    internal var labelSizeResId: Int =
+        DEFAULT_LABEL_SIZE
     private var networkStatus: NetworkStatus? = null
 
     private val networkReceiver: BroadcastReceiver by lazy {
@@ -163,12 +164,26 @@ open class NetStatusView : LinearLayout {
     }
 }
 
-@BindingAdapter(value = ["strengthLevelResIds", "labelColor", "labelSizeResId", "labelWifi", "label2G", "label3G", "label4G", "labelUnknown"])
+@BindingAdapter(
+    value = [
+        "strengthLevelResIds",
+        "textColor",
+        "textSizeResId",
+        "textWifi",
+        "text2G",
+        "text3G",
+        "text4G",
+        "textUnknown"]
+)
 fun NetStatusView.setUp(
     @ArrayRes strengthLevelResIds: Int,
     @ColorInt labelColor: Int,
     @DimenRes labelSizeResId: Int,
-    @StringRes labelWifi: Int, @StringRes label2G: Int, @StringRes label3G: Int, @StringRes label4G: Int, @StringRes labelUnknown: Int
+    @StringRes labelWifi: Int,
+    @StringRes label2G: Int,
+    @StringRes label3G: Int,
+    @StringRes label4G: Int,
+    @StringRes labelUnknown: Int
 ) {
     with(context) {
         NET_WIFI = getString(labelWifi)
@@ -262,6 +277,7 @@ private fun TelephonyManager.getNetStatus(
     )
 }
 
-private fun NetworkInfo.isNotConnected() = !isConnected || ((type != ConnectivityManager.TYPE_WIFI) && (type != ConnectivityManager.TYPE_MOBILE))
+private fun NetworkInfo.isNotConnected() =
+    !isConnected || ((type != ConnectivityManager.TYPE_WIFI) && (type != ConnectivityManager.TYPE_MOBILE))
 
 private fun NetworkInfo.hasConnection() = !isNotConnected()
