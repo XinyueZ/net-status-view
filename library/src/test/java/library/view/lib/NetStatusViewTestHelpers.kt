@@ -7,8 +7,6 @@ import android.app.Application
 import android.content.Context
 import android.content.Context.*
 import android.content.Intent
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat.JPEG
 import android.graphics.Bitmap.Config.ARGB_8888
@@ -97,10 +95,7 @@ internal val FULL_LIST_OF_NET_UNKNOWN by lazy {
 class TestNetStatusViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DataBindingUtil.setContentView<ViewDataBinding>(
-            this,
-            R.layout.test_net_status_view
-        )
+        setContentView(R.layout.test_net_status_view)
     }
 }
 
