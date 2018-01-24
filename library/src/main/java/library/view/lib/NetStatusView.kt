@@ -23,12 +23,14 @@ import android.support.annotation.ColorInt
 import android.support.annotation.DimenRes
 import android.support.annotation.StringRes
 import android.support.v4.content.res.ResourcesCompat
+import android.telephony.CellSignalStrength.SIGNAL_STRENGTH_NONE_OR_UNKNOWN
 import android.telephony.PhoneStateListener
 import android.telephony.PhoneStateListener.*
 import android.telephony.SignalStrength
 import android.telephony.TelephonyManager
 import android.telephony.TelephonyManager.*
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue.COMPLEX_UNIT_PX
 import android.view.LayoutInflater
 import android.widget.ImageView
@@ -40,6 +42,8 @@ import library.view.lib.NetStatusView.Companion.NET_4G
 import library.view.lib.NetStatusView.Companion.NET_UNKNOWN
 import library.view.lib.NetStatusView.Companion.NET_WIFI
 import library.view.lib.NetStatusView.Companion.UNKNOWN_STRENGTH
+import kotlin.reflect.full.memberFunctions
+import kotlin.reflect.jvm.isAccessible
 
 open class NetStatusView : LinearLayout {
     internal var strengthLevelCount = 4
@@ -73,6 +77,11 @@ open class NetStatusView : LinearLayout {
         override fun onSignalStrengthsChanged(signalStrength: SignalStrength?) {
             super.onSignalStrengthsChanged(signalStrength)
             updateNetworkStatus(signalStrength)
+        }
+
+        override fun onSignalStrengthChanged(signalStrength: Int) {
+            super.onSignalStrengthChanged(signalStrength)
+            Log.d(NetStatusView.javaClass.simpleName, "onSignalStrengthChanged $signalStrength")
         }
     }
 
@@ -319,8 +328,49 @@ private fun NetworkInfo.hasConnection() = !isNotConnected()
  * Calculate strength of cell-network from 0...3 levels.
  * @param max The level max is 3.
  */
-@TargetApi(Build.VERSION_CODES.M)
-fun SignalStrength?.getCellStrengthLevel(max: Int = 3): Int {
-    if (this == null) return 0
-    return if (level >= max) max else level
-}
+fun SignalStrength?.getCellStrengthLevel(max: Int = 3): Int =
+    when {
+        this == null -> 0
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> level
+        else -> getLevelProM()
+    }.run {
+        if (this >= max) max else this
+    }
+
+private fun SignalStrength.getLevelProM(): Int =
+    if (isGsm) {
+        var level = callLevelApi("getLteLevel")
+        if (level == SIGNAL_STRENGTH_NONE_OR_UNKNOWN) {
+            level = callLevelApi("getTdScdmaLevel")
+            if (level == SIGNAL_STRENGTH_NONE_OR_UNKNOWN) {
+                level = callLevelApi("getGsmLevel")
+            }
+        }
+        level
+    } else {
+        val cdmaLevel = callLevelApi("getCdmaLevel")
+        val evdoLevel = callLevelApi("getEvdoLevel")
+        if (evdoLevel == SIGNAL_STRENGTH_NONE_OR_UNKNOWN) {
+            cdmaLevel
+        } else if (cdmaLevel == SIGNAL_STRENGTH_NONE_OR_UNKNOWN) {
+            evdoLevel
+        } else {
+            if (cdmaLevel < evdoLevel) cdmaLevel else evdoLevel
+        }
+    }
+
+private fun SignalStrength.callLevelApi(methodName: String): Int =
+    try {
+        val function = this::class.memberFunctions.find { it.name == methodName }
+        function?.let {
+            it.isAccessible = true
+            val ret = it.call(this@callLevelApi) as? Int
+            ret?.let {
+                it
+            } ?: kotlin.run {
+                SIGNAL_STRENGTH_NONE_OR_UNKNOWN
+            }
+        } ?: kotlin.run { SIGNAL_STRENGTH_NONE_OR_UNKNOWN }
+    } catch (ex: Exception) {
+        SIGNAL_STRENGTH_NONE_OR_UNKNOWN
+    }
