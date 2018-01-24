@@ -322,7 +322,7 @@ private fun NetworkInfo.hasConnection() = !isNotConnected()
  * Calculate strength of cell-network from 0...3 levels.
  * @param max The level max is 3.
  */
-fun SignalStrength?.getCellStrengthLevel(max: Int = 3): Int =
+private fun SignalStrength?.getCellStrengthLevel(max: Int = 3): Int =
     when {
         this == null -> 0
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> level
