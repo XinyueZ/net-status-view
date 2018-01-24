@@ -30,7 +30,6 @@ import android.telephony.SignalStrength
 import android.telephony.TelephonyManager
 import android.telephony.TelephonyManager.*
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue.COMPLEX_UNIT_PX
 import android.view.LayoutInflater
 import android.widget.ImageView
@@ -77,11 +76,6 @@ open class NetStatusView : LinearLayout {
         override fun onSignalStrengthsChanged(signalStrength: SignalStrength?) {
             super.onSignalStrengthsChanged(signalStrength)
             updateNetworkStatus(signalStrength)
-        }
-
-        override fun onSignalStrengthChanged(signalStrength: Int) {
-            super.onSignalStrengthChanged(signalStrength)
-            Log.d(NetStatusView.javaClass.simpleName, "onSignalStrengthChanged $signalStrength")
         }
     }
 
