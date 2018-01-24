@@ -111,7 +111,7 @@ fun Context.withNetworkTest(
     isUsable: Boolean = true,
     airplane: Boolean = false,
     listOfNetwork: List<Int>,
-    rssiStrength: Int = 0,
+    netStrength: Int = 0,
     assertBlock: () -> Unit
 ) {
 
@@ -120,7 +120,7 @@ fun Context.withNetworkTest(
             (getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager).let { cnnMgr ->
                 with(wifiMgr) {
                     shadowOf(this).isWifiEnabled = useWifi
-                    shadowOf(shadowOf(this).connectionInfo).rssi = rssiStrength
+                    shadowOf(shadowOf(this).connectionInfo).rssi = netStrength
                 }
                 setAirplaneMode(airplane)
 

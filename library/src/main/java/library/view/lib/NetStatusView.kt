@@ -154,7 +154,7 @@ open class NetStatusView : LinearLayout {
     }
 
     override fun onDetachedFromWindow() {
-        tearListeners()
+        tearDownListeners()
         super.onDetachedFromWindow()
     }
 
@@ -173,7 +173,7 @@ open class NetStatusView : LinearLayout {
         }
     }
 
-    private fun tearListeners() {
+    private fun tearDownListeners() {
         with(context) {
             unregisterReceiver(networkReceiver)
             (getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager).listen(
