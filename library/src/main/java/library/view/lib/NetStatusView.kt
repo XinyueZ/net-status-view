@@ -23,6 +23,9 @@ import android.support.annotation.ColorInt
 import android.support.annotation.DimenRes
 import android.support.annotation.StringRes
 import android.support.v4.content.res.ResourcesCompat
+import android.telephony.PhoneStateListener
+import android.telephony.PhoneStateListener.*
+import android.telephony.SignalStrength
 import android.telephony.TelephonyManager
 import android.telephony.TelephonyManager.*
 import android.util.AttributeSet
@@ -57,6 +60,19 @@ open class NetStatusView : LinearLayout {
             override fun onReceive(context: Context, intent: Intent) {
                 updateNetworkStatus()
             }
+        }
+    }
+
+    private val phoneStateEvents by lazy { LISTEN_SERVICE_STATE or LISTEN_SIGNAL_STRENGTHS or LISTEN_DATA_CONNECTION_STATE or LISTEN_DATA_ACTIVITY }
+    private val phoneStateListener = object : PhoneStateListener() {
+        override fun onDataConnectionStateChanged(state: Int, networkType: Int) {
+            super.onDataConnectionStateChanged(state, networkType)
+            updateNetworkStatus()
+        }
+
+        override fun onSignalStrengthsChanged(signalStrength: SignalStrength?) {
+            super.onSignalStrengthsChanged(signalStrength)
+            updateNetworkStatus(signalStrength)
         }
     }
 
@@ -134,32 +150,47 @@ open class NetStatusView : LinearLayout {
         }
 
         updateNetworkStatus()
-        setUpBroadcastReceiver()
+        setUpListeners()
     }
 
     override fun onDetachedFromWindow() {
-        tearDownBroadcastReceiver()
+        tearListeners()
         super.onDetachedFromWindow()
     }
 
-    private fun setUpBroadcastReceiver() {
-        IntentFilter().run {
-            addAction(NETWORK_STATE_CHANGED_ACTION)
-            addAction(WIFI_STATE_CHANGED_ACTION)
-            addAction(CONNECTIVITY_ACTION)
-            context.registerReceiver(networkReceiver, this)
+    private fun setUpListeners() {
+        with(context) {
+            IntentFilter().run {
+                addAction(CONNECTIVITY_ACTION)
+                addAction(WIFI_STATE_CHANGED_ACTION)
+                addAction(NETWORK_STATE_CHANGED_ACTION)
+                context.registerReceiver(networkReceiver, this)
+            }
+
+            (getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager).listen(
+                phoneStateListener, phoneStateEvents
+            )
         }
     }
 
-    private fun tearDownBroadcastReceiver() {
-        context.unregisterReceiver(networkReceiver)
+    private fun tearListeners() {
+        with(context) {
+            unregisterReceiver(networkReceiver)
+            (getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager).listen(
+                phoneStateListener, LISTEN_NONE
+            )
+        }
     }
 
-    private fun updateNetworkStatus() {
+    private fun updateNetworkStatus(cellSignalStrength: SignalStrength? = null) {
         with(context) {
             with(
                 (getSystemService(TELEPHONY_SERVICE) as TelephonyManager)
-                    .getNetStatus(applicationContext as Application, this@NetStatusView)
+                    .getNetStatus(
+                        applicationContext as Application,
+                        cellSignalStrength,
+                        this@NetStatusView
+                    )
             ) {
                 networkStatus = this
                 findViewById<TextView>(R.id.net_type_tv).text = type
@@ -210,6 +241,7 @@ internal data class NetworkStatus(val type: String, val strength: Int)
 
 private fun TelephonyManager.getNetStatus(
     context: Application,
+    cellSignalStrength: SignalStrength? = null,
     netStatusView: NetStatusView
 ): NetworkStatus {
     // Ask for network type.
@@ -264,16 +296,11 @@ private fun TelephonyManager.getNetStatus(
             UNKNOWN_STRENGTH
         }
         else -> { // Mobile data are others.
-
-            /**
-             * FIXME: Because of permission of location we ignore status of cell-network currently, using "full".
-             *
-             * val cellinfogsm = allCellInfo[0] as CellInfoGsm
-             * val cellSignalStrengthGsm = cellinfogsm.cellSignalStrength
-             * cellSignalStrengthGsm.level
-             */
-            netStatusView.netStrengthLevelResIds?.let { it.length() - 1 }
-                    ?: kotlin.run { UNKNOWN_STRENGTH }
+            with(netStatusView) {
+                netStrengthLevelResIds?.let {
+                    cellSignalStrength?.getCellStrengthLevel(it.length() - 1)
+                } ?: kotlin.run { UNKNOWN_STRENGTH }
+            }
         }
     }
 
@@ -287,3 +314,13 @@ private fun NetworkInfo.isNotConnected() =
     !isConnected || ((type != ConnectivityManager.TYPE_WIFI) && (type != ConnectivityManager.TYPE_MOBILE))
 
 private fun NetworkInfo.hasConnection() = !isNotConnected()
+
+/**
+ * Calculate strength of cell-network from 0...3 levels.
+ * @param max The level max is 3.
+ */
+@TargetApi(Build.VERSION_CODES.M)
+fun SignalStrength?.getCellStrengthLevel(max: Int = 3): Int {
+    if (this == null) return 0
+    return if (level >= max) max else level
+}
