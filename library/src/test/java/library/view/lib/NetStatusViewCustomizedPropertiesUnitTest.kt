@@ -5,8 +5,10 @@ import org.junit.Assert.assertNotNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
+@Config(shadows = [(ShadowSignalStrength::class)])
 class NetStatusViewCustomizedPropertiesUnitTest : AbstractNetStatusViewUnitTest() {
     override fun config(netStatusView: NetStatusView) {
         with(context()) {

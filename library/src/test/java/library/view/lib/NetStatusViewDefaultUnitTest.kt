@@ -9,9 +9,11 @@ import org.junit.Assert.assertNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 import org.robolectric.util.ReflectionHelpers.getStaticField
 
 @RunWith(RobolectricTestRunner::class)
+@Config(shadows = [(ShadowSignalStrength::class)])
 class NetStatusViewDefaultUnitTest : AbstractNetStatusViewUnitTest() {
     override fun config(netStatusView: NetStatusView) {
         with(netStatusView) {

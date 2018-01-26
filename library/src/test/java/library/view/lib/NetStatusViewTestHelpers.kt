@@ -20,14 +20,20 @@ import android.net.NetworkInfo
 import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.support.annotation.IdRes
+import android.telephony.PhoneStateListener
+import android.telephony.SignalStrength
 import android.telephony.TelephonyManager
 import android.view.View
 import io.kotlintest.properties.Gen
 import org.junit.Assert.assertNotNull
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows.shadowOf
+import org.robolectric.annotation.Implementation
+import org.robolectric.annotation.Implements
+import org.robolectric.shadow.api.Shadow
 import org.robolectric.shadows.ShadowNetworkInfo.newInstance
 import org.robolectric.shadows.ShadowSettings.setAirplaneMode
+import org.robolectric.util.ReflectionHelpers
 import java.io.ByteArrayOutputStream
 import java.util.*
 
@@ -139,12 +145,38 @@ fun Context.withNetworkTest(
                     shadowOf(telMgr).networkType = Gen.oneOf(
                         listOfNetwork
                     ).generate()
+
+                    ReflectionHelpers.callConstructor(SignalStrength::class.java).apply {
+                        ShadowSignalStrength.shadowOf(this).setLevel(netStrength)
+                        with(shadowOf(telMgr)) {
+                            if (eventFlags != PhoneStateListener.LISTEN_NONE)
+                                listener.onSignalStrengthsChanged(this@apply)
+                        }
+                    }
+                } else {
+                    sendBroadcast(Intent(CONNECTIVITY_ACTION))
                 }
 
-                sendBroadcast(Intent(CONNECTIVITY_ACTION))
                 assertBlock()
             }
         }
+    }
+}
+
+@Implements(SignalStrength::class)
+class ShadowSignalStrength {
+    private var shadowLevel = 0
+
+    fun setLevel(level: Int) {
+        shadowLevel = level
+    }
+
+    @Implementation
+    fun getLevel() = shadowLevel
+
+    companion object {
+        fun shadowOf(real: SignalStrength): ShadowSignalStrength =
+            Shadow.extract<ShadowSignalStrength>(real)
     }
 }
 

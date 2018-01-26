@@ -19,8 +19,10 @@ import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.android.controller.ActivityController
+import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
+@Config(shadows = [(ShadowSignalStrength::class)])
 class NetStatusViewUiTest {
     private lateinit var netWifi: String
     private lateinit var net2g: String
@@ -135,9 +137,9 @@ class NetStatusViewUiTest {
 
     @Test
     fun test2G() {
+        val cellStrength = Gen.choose(0, 3).generate()
         with(netStatusView) {
             context.run {
-
                 //wifi-off(cell-on 2g), airplane-off, usable.
                 withNetworkTest(
                     false,
@@ -150,6 +152,22 @@ class NetStatusViewUiTest {
                         if (netStrengthLevelRes > 0) VISIBLE else GONE,
                         findViewById<ImageView>(R.id.net_strength_level_iv).visibility
                     )
+                    assertEquals(
+                        true,
+                        findViewById<ImageView>(R.id.net_strength_level_iv)
+                            .drawable
+                            .bytesEqualTo(
+                                AppCompatResources.getDrawable(
+                                    this@run,
+                                    (resources.obtainTypedArray(netStrengthLevelRes)).getResourceId(
+                                        cellStrength,
+                                        -1
+                                    )
+                                )
+
+                            )
+                    )
+
                     // label on UI
                     assertEquals(
                         net2g,
@@ -163,19 +181,37 @@ class NetStatusViewUiTest {
     @Test
     fun test3G() {
         with(netStatusView) {
+            val cellStrength = Gen.choose(0, 3).generate()
             context.run {
                 //wifi-off(cell-on 3g), airplane-off, usable.
                 withNetworkTest(
                     false,
                     true,
                     false,
-                    FULL_LIST_OF_NET_3G
+                    FULL_LIST_OF_NET_3G,
+                    cellStrength
                 ) {
                     // the UI to show the indicator.
                     assertEquals(
                         if (netStrengthLevelRes > 0) VISIBLE else GONE,
                         findViewById<ImageView>(R.id.net_strength_level_iv).visibility
                     )
+                    assertEquals(
+                        true,
+                        findViewById<ImageView>(R.id.net_strength_level_iv)
+                            .drawable
+                            .bytesEqualTo(
+                                AppCompatResources.getDrawable(
+                                    this@run,
+                                    (resources.obtainTypedArray(netStrengthLevelRes)).getResourceId(
+                                        cellStrength,
+                                        -1
+                                    )
+                                )
+
+                            )
+                    )
+
                     // label on UI
                     assertEquals(
                         net3g,
@@ -189,8 +225,8 @@ class NetStatusViewUiTest {
     @Test
     fun test4G() {
         with(netStatusView) {
+            val cellStrength = Gen.choose(0, 3).generate()
             context.run {
-
                 //wifi-off(cell-on 4g), airplane-off, usable.
                 withNetworkTest(
                     false,
@@ -202,6 +238,21 @@ class NetStatusViewUiTest {
                     assertEquals(
                         if (netStrengthLevelRes > 0) VISIBLE else GONE,
                         findViewById<ImageView>(R.id.net_strength_level_iv).visibility
+                    )
+                    assertEquals(
+                        true,
+                        findViewById<ImageView>(R.id.net_strength_level_iv)
+                            .drawable
+                            .bytesEqualTo(
+                                AppCompatResources.getDrawable(
+                                    this@run,
+                                    (resources.obtainTypedArray(netStrengthLevelRes)).getResourceId(
+                                        cellStrength,
+                                        -1
+                                    )
+                                )
+
+                            )
                     )
                     // label on UI
                     assertEquals(

@@ -16,6 +16,8 @@ import android.net.NetworkInfo
 import android.net.wifi.WifiManager
 import android.net.wifi.WifiManager.*
 import android.os.Build
+import android.os.Build.VERSION_CODES.LOLLIPOP
+import android.os.Build.VERSION_CODES.M
 import android.provider.Settings.Global.AIRPLANE_MODE_ON
 import android.provider.Settings.Global.getInt
 import android.support.annotation.ArrayRes
@@ -105,7 +107,7 @@ open class NetStatusView : LinearLayout {
         init(attrs)
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @TargetApi(LOLLIPOP)
     @Suppress("unused")
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(
         context,
@@ -325,9 +327,10 @@ private fun NetworkInfo.hasConnection() = !isNotConnected()
 private fun SignalStrength?.getCellStrengthLevel(max: Int = 3): Int =
     when {
         this == null -> 0
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> level
+        Build.VERSION.SDK_INT >= M -> level
         else -> getLevelProM()
     }.run {
+        println("real level: $this")
         if (this >= max) max else this
     }
 
