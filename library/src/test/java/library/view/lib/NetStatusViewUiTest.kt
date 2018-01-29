@@ -107,18 +107,7 @@ class NetStatusViewUiTest {
                     if (netStrengthLevelRes > 0)
                         assertEquals(
                             true,
-                            findViewById<ImageView>(R.id.net_strength_level_iv)
-                                .drawable
-                                .bytesEqualTo(
-                                    AppCompatResources.getDrawable(
-                                        this@run,
-                                        (resources.obtainTypedArray(netStrengthLevelRes)).getResourceId(
-                                            wifiStrength,
-                                            -1
-                                        )
-                                    )
-
-                                )
+                            findViewById<ImageView>(R.id.net_strength_level_iv).sameResource(wifiStrength)
                         )
                     // the UI to show the indicator.
                     assertEquals(
@@ -155,17 +144,7 @@ class NetStatusViewUiTest {
                     )
                     assertEquals(
                         true,
-                        findViewById<ImageView>(R.id.net_strength_level_iv)
-                            .drawable
-                            .bytesEqualTo(
-                                AppCompatResources.getDrawable(
-                                    this@run,
-                                    (resources.obtainTypedArray(netStrengthLevelRes)).getResourceId(
-                                        cellStrength,
-                                        -1
-                                    )
-                                )
-                            )
+                        findViewById<ImageView>(R.id.net_strength_level_iv).sameResource(cellStrength)
                     )
 
                     // label on UI
@@ -198,17 +177,7 @@ class NetStatusViewUiTest {
                     )
                     assertEquals(
                         true,
-                        findViewById<ImageView>(R.id.net_strength_level_iv)
-                            .drawable
-                            .bytesEqualTo(
-                                AppCompatResources.getDrawable(
-                                    this@run,
-                                    (resources.obtainTypedArray(netStrengthLevelRes)).getResourceId(
-                                        cellStrength,
-                                        -1
-                                    )
-                                )
-                            )
+                        findViewById<ImageView>(R.id.net_strength_level_iv).sameResource(cellStrength)
                     )
 
                     // label on UI
@@ -241,17 +210,7 @@ class NetStatusViewUiTest {
                     )
                     assertEquals(
                         true,
-                        findViewById<ImageView>(R.id.net_strength_level_iv)
-                            .drawable
-                            .bytesEqualTo(
-                                AppCompatResources.getDrawable(
-                                    this@run,
-                                    (resources.obtainTypedArray(netStrengthLevelRes)).getResourceId(
-                                        cellStrength,
-                                        -1
-                                    )
-                                )
-                            )
+                        findViewById<ImageView>(R.id.net_strength_level_iv).sameResource(cellStrength)
                     )
 
                     // label on UI
@@ -338,4 +297,15 @@ class NetStatusViewUiTest {
             }
         }
     }
+
+    private fun ImageView.sameResource(index: Int) = drawable
+        .bytesEqualTo(
+            AppCompatResources.getDrawable(
+                context,
+                (resources.obtainTypedArray(netStrengthLevelRes)).getResourceId(
+                    index,
+                    -1
+                )
+            )
+        )
 }
