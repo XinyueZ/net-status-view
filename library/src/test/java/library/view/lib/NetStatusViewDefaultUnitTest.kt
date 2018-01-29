@@ -1,10 +1,12 @@
 package library.view.lib
 
+import io.kotlintest.properties.Gen
 import library.view.lib.NetStatusView.Companion.NET_2G
 import library.view.lib.NetStatusView.Companion.NET_3G
 import library.view.lib.NetStatusView.Companion.NET_4G
 import library.view.lib.NetStatusView.Companion.NET_UNKNOWN
 import library.view.lib.NetStatusView.Companion.NET_WIFI
+import org.junit.Assert
 import org.junit.Assert.assertNull
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -34,6 +36,87 @@ class NetStatusViewDefaultUnitTest : AbstractNetStatusViewUnitTest() {
         with(context()) {
             with(netStatusView) {
                 assertNull(netStrengthLevelResIds)
+            }
+        }
+    }
+
+    @Test
+    fun test2G_HaveNotNetworkTypeAndStrength() {
+        val cellStrength = Gen.choose(0, 3).generate()
+        with(context()) {
+            with(netStatusView) {
+                withNetworkTest(
+                    false,
+                    true,
+                    false,
+                    FULL_LIST_OF_NET_2G,
+                    cellStrength
+                ) {
+                    // net's type
+                    Assert.assertEquals(
+                        net2g,
+                        getNetworkStatus().type
+                    )
+                    // net's strength
+                    Assert.assertEquals(
+                        true,
+                        getNetworkStatus().strength < 0
+                    )
+                }
+            }
+        }
+    }
+
+    @Test
+    fun test3G_HaveNotNetworkTypeAndStrength() {
+        val cellStrength = Gen.choose(0, 3).generate()
+        with(context()) {
+            with(netStatusView) {
+                withNetworkTest(
+                    false,
+                    true,
+                    false,
+                    FULL_LIST_OF_NET_3G,
+                    cellStrength
+                ) {
+                    // net's type
+                    Assert.assertEquals(
+                        net3g,
+                        getNetworkStatus().type
+                    )
+                    // net's strength
+                    Assert.assertEquals(
+                        true,
+                        getNetworkStatus().strength < 0
+                    )
+                }
+            }
+        }
+    }
+
+    @Test
+    fun test4G_HaveNotNetworkTypeAndStrength() {
+        val cellStrength = Gen.choose(0, 3).generate()
+        with(context()) {
+            with(netStatusView) {
+                withNetworkTest(
+                    false,
+                    true,
+                    false,
+                    FULL_LIST_OF_NET_4G,
+                    cellStrength
+                ) {
+                    // net's type
+                    Assert.assertEquals(
+                        net4g,
+                        getNetworkStatus().type
+                    )
+                    // net's strength
+                    Assert.assertEquals(
+                        true,
+                        getNetworkStatus().strength < 0
+                    )
+                }
             }
         }
     }

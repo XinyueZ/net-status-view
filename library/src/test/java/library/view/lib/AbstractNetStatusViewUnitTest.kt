@@ -79,67 +79,6 @@ abstract class AbstractNetStatusViewUnitTest {
     }
 
     @Test
-    fun test2G() {
-        with(context()) {
-            with(netStatusView) {
-                withNetworkTest(
-                    false,
-                    true,
-                    false,
-                    FULL_LIST_OF_NET_2G
-                ) {
-                    // net's type
-                    assertEquals(
-                        net2g,
-                        getNetworkStatus().type
-                    )
-                }
-
-            }
-        }
-    }
-
-    @Test
-    fun test3G() {
-        with(context()) {
-            with(netStatusView) {
-                withNetworkTest(
-                    false,
-                    true,
-                    false,
-                    FULL_LIST_OF_NET_3G
-                ) {
-                    // net's type
-                    assertEquals(
-                        net3g,
-                        getNetworkStatus().type
-                    )
-                }
-            }
-        }
-    }
-
-    @Test
-    fun test4G() {
-        with(context()) {
-            with(netStatusView) {
-                withNetworkTest(
-                    false,
-                    true,
-                    false,
-                    FULL_LIST_OF_NET_4G
-                ) {
-                    // net's type
-                    assertEquals(
-                        net4g,
-                        getNetworkStatus().type
-                    )
-                }
-            }
-        }
-    }
-
-    @Test
     fun testUnknownNetwork() {
         with(context()) {
             with(netStatusView) {
@@ -250,6 +189,6 @@ abstract class AbstractNetStatusViewUnitTest {
         )
     }
 
-    private fun NetStatusView.getNetworkStatus(): NetworkStatus =
+    internal fun NetStatusView.getNetworkStatus(): NetworkStatus =
         getField<NetworkStatus>(this, "networkStatus")
 }

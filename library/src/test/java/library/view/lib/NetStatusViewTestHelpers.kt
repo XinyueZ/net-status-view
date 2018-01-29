@@ -148,6 +148,7 @@ fun Context.withNetworkTest(
 
                     ReflectionHelpers.callConstructor(SignalStrength::class.java).apply {
                         ShadowSignalStrength.shadowOf(this).setLevel(netStrength)
+                        println("fake level: $netStrength")
                         with(shadowOf(telMgr)) {
                             if (eventFlags != PhoneStateListener.LISTEN_NONE)
                                 listener.onSignalStrengthsChanged(this@apply)
