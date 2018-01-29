@@ -100,7 +100,7 @@ class NetStatusViewCustomizedPropertiesUnitTest : AbstractNetStatusViewUnitTest(
     }
 
     @Test
-    fun should4G_HaveNetworkTypeAndStrength() {
+    fun test4G_HaveNetworkTypeAndStrength() {
         val cellStrength = Gen.choose(0, 3).generate()
         with(context()) {
             with(netStatusView) {
