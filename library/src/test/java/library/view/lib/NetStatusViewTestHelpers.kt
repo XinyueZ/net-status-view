@@ -20,6 +20,7 @@ import android.net.NetworkInfo
 import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.support.annotation.IdRes
+import android.support.v4.graphics.drawable.DrawableCompat
 import android.telephony.PhoneStateListener
 import android.telephony.SignalStrength
 import android.telephony.TelephonyManager
@@ -213,8 +214,7 @@ fun Bitmap.doRecycle() {
 
 fun <T : Drawable> T.toBitmap(): Bitmap {
     if (this is BitmapDrawable) return bitmap
-
-    val drawable: Drawable = this
+    val drawable: Drawable = (DrawableCompat.wrap(this)).mutate()
     val bitmap = createBitmap(
         drawable.intrinsicWidth,
         drawable.intrinsicHeight,

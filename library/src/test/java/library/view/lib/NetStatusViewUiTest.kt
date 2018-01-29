@@ -145,7 +145,8 @@ class NetStatusViewUiTest {
                     false,
                     true,
                     false,
-                    FULL_LIST_OF_NET_2G
+                    FULL_LIST_OF_NET_2G,
+                    cellStrength
                 ) {
                     // the UI to show the indicator.
                     assertEquals(
@@ -164,7 +165,6 @@ class NetStatusViewUiTest {
                                         -1
                                     )
                                 )
-
                             )
                     )
 
@@ -208,7 +208,6 @@ class NetStatusViewUiTest {
                                         -1
                                     )
                                 )
-
                             )
                     )
 
@@ -232,7 +231,8 @@ class NetStatusViewUiTest {
                     false,
                     true,
                     false,
-                    FULL_LIST_OF_NET_4G
+                    FULL_LIST_OF_NET_4G,
+                    cellStrength
                 ) {
                     // the UI to show the indicator.
                     assertEquals(
@@ -251,9 +251,9 @@ class NetStatusViewUiTest {
                                         -1
                                     )
                                 )
-
                             )
                     )
+
                     // label on UI
                     assertEquals(
                         net4g,
