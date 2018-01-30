@@ -6,8 +6,8 @@ import library.view.lib.NetStatusView.Companion.NET_3G
 import library.view.lib.NetStatusView.Companion.NET_4G
 import library.view.lib.NetStatusView.Companion.NET_UNKNOWN
 import library.view.lib.NetStatusView.Companion.NET_WIFI
-import org.junit.Assert
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
