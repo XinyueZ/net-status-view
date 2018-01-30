@@ -7,7 +7,7 @@ import library.view.lib.NetStatusView.Companion.NET_4G
 import library.view.lib.NetStatusView.Companion.NET_UNKNOWN
 import library.view.lib.NetStatusView.Companion.NET_WIFI
 import org.junit.Assert
-import org.junit.Assert.assertNull
+import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -53,12 +53,12 @@ class NetStatusViewDefaultUnitTest : AbstractNetStatusViewUnitTest() {
                     cellStrength
                 ) {
                     // net's type
-                    Assert.assertEquals(
+                    assertEquals(
                         net2g,
                         getNetworkStatus().type
                     )
                     // net's strength
-                    Assert.assertEquals(
+                    assertEquals(
                         true,
                         getNetworkStatus().strength < 0
                     )
@@ -80,12 +80,12 @@ class NetStatusViewDefaultUnitTest : AbstractNetStatusViewUnitTest() {
                     cellStrength
                 ) {
                     // net's type
-                    Assert.assertEquals(
+                    assertEquals(
                         net3g,
                         getNetworkStatus().type
                     )
                     // net's strength
-                    Assert.assertEquals(
+                    assertEquals(
                         true,
                         getNetworkStatus().strength < 0
                     )
@@ -107,12 +107,12 @@ class NetStatusViewDefaultUnitTest : AbstractNetStatusViewUnitTest() {
                     cellStrength
                 ) {
                     // net's type
-                    Assert.assertEquals(
+                    assertEquals(
                         net4g,
                         getNetworkStatus().type
                     )
                     // net's strength
-                    Assert.assertEquals(
+                    assertEquals(
                         true,
                         getNetworkStatus().strength < 0
                     )

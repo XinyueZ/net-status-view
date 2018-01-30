@@ -3,7 +3,7 @@ package library.view.lib
 import android.support.v4.content.res.ResourcesCompat
 import io.kotlintest.properties.Gen
 import org.junit.Assert
-import org.junit.Assert.assertNotNull
+import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -57,12 +57,12 @@ class NetStatusViewCustomizedPropertiesUnitTest : AbstractNetStatusViewUnitTest(
                     cellStrength
                 ) {
                     // net's type
-                    Assert.assertEquals(
+                    assertEquals(
                         net2g,
                         getNetworkStatus().type
                     )
                     // net's strength
-                    Assert.assertEquals(
+                    assertEquals(
                         cellStrength,
                         getNetworkStatus().strength
                     )
@@ -85,12 +85,12 @@ class NetStatusViewCustomizedPropertiesUnitTest : AbstractNetStatusViewUnitTest(
                     cellStrength
                 ) {
                     // net's type
-                    Assert.assertEquals(
+                    assertEquals(
                         net3g,
                         getNetworkStatus().type
                     )
                     // net's strength
-                    Assert.assertEquals(
+                    assertEquals(
                         cellStrength,
                         getNetworkStatus().strength
                     )
@@ -112,12 +112,12 @@ class NetStatusViewCustomizedPropertiesUnitTest : AbstractNetStatusViewUnitTest(
                     cellStrength
                 ) {
                     // net's type
-                    Assert.assertEquals(
+                    assertEquals(
                         net4g,
                         getNetworkStatus().type
                     )
                     // net's strength
-                    Assert.assertEquals(
+                    assertEquals(
                         cellStrength,
                         getNetworkStatus().strength
                     )
