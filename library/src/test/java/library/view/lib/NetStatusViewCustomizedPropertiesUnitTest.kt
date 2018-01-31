@@ -2,7 +2,6 @@ package library.view.lib
 
 import android.support.v4.content.res.ResourcesCompat
 import io.kotlintest.properties.Gen
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith

@@ -29,9 +29,6 @@ import io.kotlintest.properties.Gen
 import org.junit.Assert.assertNotNull
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows.shadowOf
-import org.robolectric.annotation.Implementation
-import org.robolectric.annotation.Implements
-import org.robolectric.shadow.api.Shadow
 import org.robolectric.shadows.ShadowNetworkInfo.newInstance
 import org.robolectric.shadows.ShadowSettings.setAirplaneMode
 import org.robolectric.util.ReflectionHelpers
@@ -149,7 +146,6 @@ fun Context.withNetworkTest(
 
                     ReflectionHelpers.callConstructor(SignalStrength::class.java).apply {
                         ShadowSignalStrength.shadowOf(this).setLevel(netStrength)
-                        println("fake level: $netStrength")
                         with(shadowOf(telMgr)) {
                             if (eventFlags != PhoneStateListener.LISTEN_NONE)
                                 listener.onSignalStrengthsChanged(this@apply)
@@ -162,23 +158,6 @@ fun Context.withNetworkTest(
                 assertBlock()
             }
         }
-    }
-}
-
-@Implements(SignalStrength::class)
-class ShadowSignalStrength {
-    private var shadowLevel = 0
-
-    fun setLevel(level: Int) {
-        shadowLevel = level
-    }
-
-    @Implementation
-    fun getLevel() = shadowLevel
-
-    companion object {
-        fun shadowOf(real: SignalStrength): ShadowSignalStrength =
-            Shadow.extract<ShadowSignalStrength>(real)
     }
 }
 
