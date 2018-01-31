@@ -3,6 +3,24 @@
 buildscript {
     ext.kotlin_version = '1.2.21'
     ext.gradle_version = '3.1.0-alpha09'
+
+    ext.appId = "library.view.sample"
+    ext.compileSdkVersion = 27
+    ext.buildToolsVersion = "27.0.3"
+    ext.minSdkVersion = 15
+    ext.targetSdkVersion = 27
+    ext.versionName = "1.0.0"
+    ext.versionCode = 1
+    ext.constraint = "1.0.2"
+    ext.supportLib7 = "27.0.2"
+    ext.live = "1.1.0"
+
+    ext.junit = "4.12"
+    ext.robolectric = "3.6.1"
+    ext.robolectricMultidex = "3.4.2"
+    ext.shadowSupportLib4 = "3.4-rc2"
+    ext.kotlintest = "2.0.7"
+
     repositories {
         google()
         jcenter()

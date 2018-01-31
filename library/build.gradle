@@ -8,14 +8,14 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 1
-        versionName "v0.5"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -65,17 +65,17 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation "com.android.support:appcompat-v7:$supportLib7"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
 
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.robolectric:multidex:3.4.2"
-    testImplementation 'io.kotlintest:kotlintest:2.0.7'
-    testImplementation "org.robolectric:robolectric:3.6.1"
-    testImplementation "org.robolectric:shadows-support-v4:3.4-rc2"
-    testImplementation "android.arch.lifecycle:extensions:1.0.0"
-    testImplementation "android.arch.lifecycle:common-java8:1.0.0"
+    testImplementation "junit:junit:$junit"
+    testImplementation "org.robolectric:multidex:$robolectricMultidex"
+    testImplementation "io.kotlintest:kotlintest:$kotlintest"
+    testImplementation "org.robolectric:robolectric:$robolectric"
+    testImplementation "org.robolectric:shadows-support-v4:$shadowSupportLib4"
+    testImplementation "android.arch.lifecycle:extensions:$live"
+    testImplementation "android.arch.lifecycle:common-java8:$live"
 }
 
