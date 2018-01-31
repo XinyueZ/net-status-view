@@ -303,7 +303,7 @@ private fun TelephonyManager.getNetStatus(
         else -> { // Mobile data are others.
             with(netStatusView) {
                 netStrengthLevelResIds?.let {
-                    cellSignalStrength?.getCellStrengthLevel(PRE_M, it.length() - 1)
+                    cellSignalStrength?.getCellStrengthLevel(it.length() - 1, PRE_M)
                 } ?: kotlin.run { UNKNOWN_STRENGTH }
             }
         }
@@ -331,11 +331,11 @@ internal const val STRENGTH_NONE_OR_UNKNOWN = 0
  * @param isPreM True if Current API Level is Lollipop or below.
  */
 internal fun SignalStrength?.getCellStrengthLevel(
-    isPreM: Boolean,
     @IntRange(
         from = 0,
         to = 3
-    ) max: Int = 3
+    ) max: Int = 3,
+    isPreM: Boolean = PRE_M
 ): Int =
     when {
         this == null -> 0

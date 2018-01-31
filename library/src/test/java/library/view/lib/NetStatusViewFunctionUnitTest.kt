@@ -140,7 +140,7 @@ class NetStatusViewFunctionUnitTest {
     fun testGetCellStrengthNullAndGetZero() {
         val st: SignalStrength? = null
         Gen.positiveIntegers().generate().run {
-            assertEquals(0, st.getCellStrengthLevel(Gen.bool().generate(), this))
+            assertEquals(0, st.getCellStrengthLevel(this, Gen.bool().generate()))
         }
     }
 
@@ -164,7 +164,7 @@ class NetStatusViewFunctionUnitTest {
             setEvdoLevel(evdo + max + 1)
             setCdmaLevel(cdma + max + 1)
 
-            assertEquals(max, strength.getCellStrengthLevel(Gen.bool().generate(), max))
+            assertEquals(max, strength.getCellStrengthLevel(max, Gen.bool().generate()))
         }
     }
 
@@ -178,8 +178,8 @@ class NetStatusViewFunctionUnitTest {
                 setGsmLevel(this)
                 setEvdoLevel(this)
                 setCdmaLevel(this)
-                assertEquals(this, strength.getCellStrengthLevel(true, this))
-                assertNotEquals(0, strength.getCellStrengthLevel(true, this))
+                assertEquals(this, strength.getCellStrengthLevel(this, true))
+                assertNotEquals(0, strength.getCellStrengthLevel(this, true))
             }
         }
     }
@@ -194,8 +194,8 @@ class NetStatusViewFunctionUnitTest {
                 setGsmLevel(0)
                 setEvdoLevel(0)
                 setCdmaLevel(0)
-                assertEquals(this, strength.getCellStrengthLevel(false, this))
-                assertNotEquals(0, strength.getCellStrengthLevel(false, this))
+                assertEquals(this, strength.getCellStrengthLevel(this, false))
+                assertNotEquals(0, strength.getCellStrengthLevel(this, false))
             }
         }
     }
