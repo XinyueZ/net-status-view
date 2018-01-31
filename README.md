@@ -14,7 +14,7 @@ A banner-view which can show strength of network according to different levels.
 
 # Usage
 
-- *Android Things*. There's no status-bar on this android variant. For Android apps based on Android Things should use this view to indicate network status in intuitively.
+- *Android Things*. There's no status-bar on this android variant. For Android apps based on Android Things should use this view to indicate network status intuitively.
 - *TV apps*. Like Android Things there's no status-bar for status of network.
 - *Full-Screen apps with camera*. Common camera-based apps are full screen, so it is necessary to provide a network status interface, especially online video or stream apps.
 
