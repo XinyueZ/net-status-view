@@ -16,7 +16,7 @@ buildscript {
     ext.live = "1.1.0"
 
     ext.junit = "4.12"
-    ext.robolectric = "3.6.1"
+    ext.robolectric = "3.7.1"
     ext.robolectricMultidex = "3.4.2"
     ext.shadowSupportLib4 = "3.4-rc2"
     ext.kotlintest = "2.0.7"
