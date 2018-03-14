@@ -147,6 +147,7 @@ fun Context.withNetworkTest(
                     ReflectionHelpers.callConstructor(SignalStrength::class.java).apply {
                         ShadowSignalStrength.shadowOf(this).setLevel(netStrength)
                         with(shadowOf(telMgr)) {
+                            @Suppress("DEPRECATION")
                             if (eventFlags != PhoneStateListener.LISTEN_NONE)
                                 listener.onSignalStrengthsChanged(this@apply)
                         }
@@ -162,8 +163,6 @@ fun Context.withNetworkTest(
 }
 
 fun <T : Drawable> T.bytesEqualTo(t: T?) = toBitmap().bytesEqualTo(t?.toBitmap(), true)
-
-fun <T : Drawable> T.pixelsEqualTo(t: T?) = toBitmap().pixelsEqualTo(t?.toBitmap(), true)
 
 fun Bitmap.bytesEqualTo(otherBitmap: Bitmap?, shouldRecycle: Boolean = false) =
     otherBitmap?.let { other ->

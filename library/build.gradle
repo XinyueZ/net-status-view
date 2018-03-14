@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileOptions {
@@ -79,3 +80,6 @@ dependencies {
     testImplementation "android.arch.lifecycle:common-java8:$live"
 }
 
+kapt {
+    useBuildCache = true
+}
