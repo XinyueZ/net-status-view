@@ -140,9 +140,11 @@ fun Context.withNetworkTest(
                 )
 
                 if (!useWifi) {
-                    shadowOf(telMgr).networkType = Gen.oneOf(
-                        listOfNetwork
-                    ).generate()
+                    shadowOf(telMgr).setNetworkType(
+                        Gen.oneOf(
+                            listOfNetwork
+                        ).generate()
+                    )
 
                     ReflectionHelpers.callConstructor(SignalStrength::class.java).apply {
                         ShadowSignalStrength.shadowOf(this).setLevel(netStrength)
