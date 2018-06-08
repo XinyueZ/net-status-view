@@ -5,10 +5,10 @@ buildscript {
     ext.gradle_version = '3.2.0-alpha16'
 
     ext.appId = "library.view.sample"
-    ext.compileSdkVersion = "android-P"
+    ext.compileSdkVersion = 28
     ext.buildToolsVersion = "28.0.0-rc2"
     ext.minSdkVersion = 15
-    ext.targetSdkVersion = 27
+    ext.targetSdkVersion = 28
     ext.versionName = "1.0.0"
     ext.versionCode = 1
     ext.constraint = "1.1.0"
