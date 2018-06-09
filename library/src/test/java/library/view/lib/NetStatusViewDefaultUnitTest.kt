@@ -15,7 +15,7 @@ import org.robolectric.annotation.Config
 import org.robolectric.util.ReflectionHelpers.getStaticField
 
 @RunWith(RobolectricTestRunner::class)
-@Config(shadows = [(ShadowSignalStrength::class)])
+@Config(shadows = [(ShadowSignalStrength::class)], sdk = [27])
 class NetStatusViewDefaultUnitTest : AbstractNetStatusViewUnitTest() {
     override fun config(netStatusView: NetStatusView) {
         with(netStatusView) {
