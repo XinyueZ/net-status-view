@@ -6,7 +6,7 @@ android:
     - tools
     - platform-tools
     - build-tools-28-rc2
-    - android-27
+    - android-28
     - add-on
     - extra
 licenses:
