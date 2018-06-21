@@ -5,7 +5,7 @@ android:
   components:
     - tools
     - platform-tools
-    - build-tools-28-rc2
+    - build-tools-28
     - android-28
     - add-on
     - extra
@@ -25,4 +25,4 @@ cache:
 before_install:
       - chmod +x ./gradlew
       - yes | sdkmanager "platforms;android-28"
-      - yes | sdkmanager "build-tools;28.0.0-rc2"
+      - yes | sdkmanager "build-tools;28.0.0"

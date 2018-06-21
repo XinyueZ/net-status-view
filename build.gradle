@@ -1,12 +1,12 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.2.41'
+    ext.kotlin_version = '1.2.50'
     ext.gradle_version = '3.2.0-alpha18'
 
     ext.appId = "library.view.sample"
     ext.compileSdkVersion = 28
-    ext.buildToolsVersion = "28.0.0-rc2"
+    ext.buildToolsVersion = "28.0.0"
     ext.minSdkVersion = 15
     ext.targetSdkVersion = 28
     ext.versionName = "1.0.0"
@@ -16,10 +16,10 @@ buildscript {
     ext.live = "1.1.0"
 
     ext.junit = "4.12"
-    ext.robolectric = "4+"
-    ext.robolectricMultidex = "3.4+"
-    ext.shadowSupportLib4 = "3.4+"
-    ext.kotlintest = "2.0.7"
+    ext.robolectric = "+"
+    ext.robolectricMultidex = "+"
+    ext.shadowSupportLib4 = "+"
+    ext.kotlintest = "+"
 
     repositories {
         google()
