@@ -22,7 +22,7 @@ import org.robolectric.android.controller.ActivityController
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
-@Config(shadows = [(ShadowSignalStrength::class)], sdk = [27])
+@Config(shadows = [(ShadowSignalStrength::class)])
 class NetStatusViewUiTest {
     private lateinit var netWifi: String
     private lateinit var net2g: String

@@ -5,7 +5,9 @@ package library.view.lib
 import android.app.Activity
 import android.app.Application
 import android.content.Context
-import android.content.Context.*
+import android.content.Context.CONNECTIVITY_SERVICE
+import android.content.Context.TELEPHONY_SERVICE
+import android.content.Context.WIFI_SERVICE
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat.JPEG
@@ -15,7 +17,9 @@ import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
-import android.net.ConnectivityManager.*
+import android.net.ConnectivityManager.CONNECTIVITY_ACTION
+import android.net.ConnectivityManager.TYPE_MOBILE
+import android.net.ConnectivityManager.TYPE_WIFI
 import android.net.NetworkInfo
 import android.net.wifi.WifiManager
 import android.os.Bundle
@@ -33,7 +37,7 @@ import org.robolectric.shadows.ShadowNetworkInfo.newInstance
 import org.robolectric.shadows.ShadowSettings.setAirplaneMode
 import org.robolectric.util.ReflectionHelpers
 import java.io.ByteArrayOutputStream
-import java.util.*
+import java.util.Arrays
 
 internal const val INTI_VAL = 0
 internal const val MIN_RSSI = -100
@@ -124,7 +128,7 @@ fun Context.withNetworkTest(
             (getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager).let { cnnMgr ->
                 with(wifiMgr) {
                     shadowOf(this).isWifiEnabled = useWifi
-                    shadowOf(shadowOf(this).connectionInfo).rssi = netStrength
+                    shadowOf(shadowOf(this).connectionInfo).setRssi(netStrength)
                 }
                 setAirplaneMode(airplane)
 

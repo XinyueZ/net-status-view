@@ -12,7 +12,7 @@ import org.robolectric.annotation.Config
 import org.robolectric.util.ReflectionHelpers
 
 @RunWith(RobolectricTestRunner::class)
-@Config(shadows = [(ShadowSignalStrength::class)], sdk = [27])
+@Config(shadows = [(ShadowSignalStrength::class)])
 class NetStatusViewFunctionUnitTest {
     private lateinit var strength: SignalStrength
     private lateinit var shadowSignalStrength: ShadowSignalStrength

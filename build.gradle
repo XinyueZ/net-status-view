@@ -19,9 +19,10 @@ buildscript {
     ext.robolectric = "+"
     ext.robolectricMultidex = "+"
     ext.shadowSupportLib4 = "+"
-    ext.kotlintest = "+"
+    ext.kotlintest = "2.0.7"
 
     repositories {
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
         google()
         jcenter()
     }
@@ -36,6 +37,7 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
         google()
         jcenter()
     }

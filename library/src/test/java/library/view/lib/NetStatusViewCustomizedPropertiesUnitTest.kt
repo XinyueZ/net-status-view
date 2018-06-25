@@ -10,7 +10,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
-@Config(shadows = [(ShadowSignalStrength::class)], sdk = [27])
+@Config(shadows = [(ShadowSignalStrength::class)])
 class NetStatusViewCustomizedPropertiesUnitTest : AbstractNetStatusViewUnitTest() {
     override fun config(netStatusView: NetStatusView) {
         with(context()) {
