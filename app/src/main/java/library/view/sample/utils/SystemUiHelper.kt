@@ -60,12 +60,6 @@ class SystemUiHelper
         // Create impl
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mImpl = SystemUiHelperImplKK(activity, level, flags, listener)
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            mImpl = SystemUiHelperImplJB(activity, level, flags, listener)
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            mImpl = SystemUiHelperImplICS(activity, level, flags, listener)
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            mImpl = SystemUiHelperImplHC(activity, level, flags, listener)
         } else {
             mImpl = SystemUiHelperImplBase(activity, level, flags, listener)
         }

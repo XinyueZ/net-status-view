@@ -1,5 +1,6 @@
 package library.view.lib
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.Application
 import android.content.BroadcastReceiver
@@ -238,6 +239,7 @@ open class NetStatusView : LinearLayout {
     }
 }
 
+@SuppressLint("Recycle")
 fun NetStatusView.setUp(
     @ArrayRes strengthLevelResIds: Int,
     @ColorInt labelColor: Int,
@@ -362,7 +364,11 @@ internal fun SignalStrength?.getCellStrengthLevel(
     when {
         this == null -> 0
         isPreM -> getLevelPreM()
-        else -> level
+        else -> if (SDK_INT >= M) {
+            level
+        } else {
+            getLevelPreM()
+        }
     }.run {
         if (this >= max) max else this
     }
