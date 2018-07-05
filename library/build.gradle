@@ -34,13 +34,6 @@ android {
         }
     }
 
-
-
-    lintOptions {
-        htmlReport false
-        abortOnError false
-    }
-
     testOptions { // <-- You need this
         unitTests {
             returnDefaultValues = true
@@ -60,6 +53,17 @@ android {
             forkEvery = 200
         }
 
+    }
+
+    lintOptions {
+        warningsAsErrors true
+    }
+}
+
+configurations.all { configuration ->
+    resolutionStrategy {
+        force "com.android.support:support-v4:$supportLib4",
+                "com.android.support:appcompat-v7:$supportLib7"
     }
 }
 
