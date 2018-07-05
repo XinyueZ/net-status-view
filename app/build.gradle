@@ -37,20 +37,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':library')
-
-    implementation "com.android.support:support-compat:$supportLib4"
-    implementation "com.android.support:support-core-utils:$supportLib4"
-    implementation "com.android.support:support-core-ui:$supportLib4"
-    implementation "com.android.support:support-media-compat:$supportLib4"
-    implementation ("com.android.support:appcompat-v7:$supportLib7") {
-        exclude module: 'support-v4'
-    }
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    implementation "com.android.support.constraint:constraint-layout:$constraint"
 }
 
 kapt {
