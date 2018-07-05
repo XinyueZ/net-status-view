@@ -12,8 +12,9 @@ buildscript {
         targetSdkVersion = 28
         versionName = "1.0.0"
         versionCode = 1
-        constraint = "1.1.0"
-        supportLib7 = "27.1.1"
+        constraint = "1.1.2"
+        supportLib4 = "28+"
+        supportLib7 = "28+"
         live = "1.1.0"
 
         junit = "4.12"
