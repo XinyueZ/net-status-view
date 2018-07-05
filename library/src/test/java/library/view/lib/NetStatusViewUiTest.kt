@@ -90,7 +90,7 @@ class NetStatusViewUiTest {
                 /**
                  * [NetStatusView] updates with different networks.
                  */
-                //wifi-on(cell-off) airplane-off, usable.
+                // wifi-on(cell-off) airplane-off, usable.
                 val rssi = Gen.choose(MIN_RSSI, MAX_RSSI).generate()
                 val wifiStrength =
                     (context.getSystemService(Context.WIFI_SERVICE) as WifiManager).run {
@@ -129,7 +129,7 @@ class NetStatusViewUiTest {
         val cellStrength = Gen.choose(0, 3).generate()
         with(netStatusView) {
             context.run {
-                //wifi-off(cell-on 2g), airplane-off, usable.
+                // wifi-off(cell-on 2g), airplane-off, usable.
                 withNetworkTest(
                     false,
                     true,
@@ -162,7 +162,7 @@ class NetStatusViewUiTest {
         with(netStatusView) {
             val cellStrength = Gen.choose(0, 3).generate()
             context.run {
-                //wifi-off(cell-on 3g), airplane-off, usable.
+                // wifi-off(cell-on 3g), airplane-off, usable.
                 withNetworkTest(
                     false,
                     true,
@@ -195,7 +195,7 @@ class NetStatusViewUiTest {
         with(netStatusView) {
             val cellStrength = Gen.choose(0, 3).generate()
             context.run {
-                //wifi-off(cell-on 4g), airplane-off, usable.
+                // wifi-off(cell-on 4g), airplane-off, usable.
                 withNetworkTest(
                     false,
                     true,

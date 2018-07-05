@@ -24,7 +24,9 @@ import android.view.WindowManager
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 internal open class SystemUiHelperImplHC(
-    activity: Activity, level: Int, flags: Int,
+    activity: Activity,
+    level: Int,
+    flags: Int,
     onVisibilityChangeListener: SystemUiHelper.OnVisibilityChangeListener?
 ) : SystemUiHelper.SystemUiHelperImpl(activity, level, flags, onVisibilityChangeListener),
     View.OnSystemUiVisibilityChangeListener {

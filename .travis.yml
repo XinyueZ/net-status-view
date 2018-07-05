@@ -14,7 +14,7 @@ licenses:
 jdk:
     - oraclejdk8
 script:
-    - ./gradlew clean test -x :app:lint -x :library:lint
+    - ./gradlew clean check -x :app:lint -x :library:lint
 before_cache:
     - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:

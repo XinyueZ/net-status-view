@@ -23,7 +23,9 @@ import android.view.View
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 internal open class SystemUiHelperImplJB(
-    activity: Activity, level: Int, flags: Int,
+    activity: Activity,
+    level: Int,
+    flags: Int,
     onVisibilityChangeListener: SystemUiHelper.OnVisibilityChangeListener?
 ) : SystemUiHelperImplICS(activity, level, flags, onVisibilityChangeListener) {
 

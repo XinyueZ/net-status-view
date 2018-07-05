@@ -67,7 +67,6 @@ class NetStatusViewCustomizedPropertiesUnitTest : AbstractNetStatusViewUnitTest(
                         getNetworkStatus().strength
                     )
                 }
-
             }
         }
     }

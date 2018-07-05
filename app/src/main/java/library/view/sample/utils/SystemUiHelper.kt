@@ -41,7 +41,9 @@ class SystemUiHelper
  * @param listener A listener which is called when the system visibility is changed
  */
 @JvmOverloads constructor(
-    activity: Activity, level: Int, flags: Int,
+    activity: Activity,
+    level: Int,
+    flags: Int,
     listener: OnVisibilityChangeListener? = null
 ) {
 
@@ -149,7 +151,9 @@ class SystemUiHelper
     }
 
     internal abstract class SystemUiHelperImpl(
-        val mActivity: Activity, val mLevel: Int, val mFlags: Int,
+        val mActivity: Activity,
+        val mLevel: Int,
+        val mFlags: Int,
         val mOnVisibilityChangeListener: OnVisibilityChangeListener?
     ) {
 
@@ -171,7 +175,9 @@ class SystemUiHelper
      * Base implementation. Used onLoaded API level 10 and below.
      */
     internal class SystemUiHelperImplBase(
-        activity: Activity, level: Int, flags: Int,
+        activity: Activity,
+        level: Int,
+        flags: Int,
         onVisibilityChangeListener: OnVisibilityChangeListener?
     ) : SystemUiHelperImpl(activity, level, flags, onVisibilityChangeListener) {
 
@@ -262,7 +268,6 @@ class SystemUiHelper
 
         private val LOG_TAG = SystemUiHelper::class.java.simpleName
     }
-
 }
 /**
  * Construct a new SystemUiHelper.

@@ -23,7 +23,9 @@ import android.view.View
 
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 internal open class SystemUiHelperImplICS(
-    activity: Activity, level: Int, flags: Int,
+    activity: Activity,
+    level: Int,
+    flags: Int,
     onVisibilityChangeListener: SystemUiHelper.OnVisibilityChangeListener?
 ) : SystemUiHelperImplHC(activity, level, flags, onVisibilityChangeListener) {
 
@@ -36,7 +38,6 @@ internal open class SystemUiHelperImplICS(
             // Intentionally override test flags.
             View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         } else View.SYSTEM_UI_FLAG_LOW_PROFILE
-
     }
 
     override fun createHideFlags(): Int {

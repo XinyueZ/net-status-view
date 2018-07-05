@@ -23,7 +23,9 @@ import android.view.View
 
 @TargetApi(Build.VERSION_CODES.KITKAT)
 internal class SystemUiHelperImplKK(
-    activity: Activity, level: Int, flags: Int,
+    activity: Activity,
+    level: Int,
+    flags: Int,
     onVisibilityChangeListener: SystemUiHelper.OnVisibilityChangeListener?
 ) : SystemUiHelperImplJB(activity, level, flags, onVisibilityChangeListener) {
 
@@ -44,5 +46,4 @@ internal class SystemUiHelperImplKK(
 
         return flag
     }
-
 }
