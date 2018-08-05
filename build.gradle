@@ -2,8 +2,8 @@
 
 buildscript {
     ext {
-        kotlin_version = '1.2.51'
-        gradle_version = '3.3.0-alpha03'
+        kotlin_version = '1.2.60'
+        gradle_version = '3.3.0-alpha04'
 
         appId = "library.view.sample"
         compileSdkVersion = 28
