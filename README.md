@@ -95,12 +95,9 @@ A banner-view which can show strength of network according to different levels.
    <color name="ns_view_text_color">#FFFFFFFF</color>
 ```
 
-#Android Studio IDE setup 
-
-For development, the latest version of Android Studio 3.2 is required. The latest version can be
-downloaded from [here](https://developer.android.com/studio/preview/).
-
-Sunflower uses [ktlint](https://ktlint.github.io/) to enforce Kotlin coding styles.
+# klint support
+ 
+The project uses [ktlint](https://ktlint.github.io/) to enforce Kotlin coding styles.
 Here's how to configure it for use with Android Studio (instructions adapted
 from the ktlint [README](https://github.com/shyiko/ktlint/blob/master/README.md)):
 
