@@ -1,4 +1,6 @@
 language: android
+notifications:
+   slack: devxinyuezhao:6nLYv1EMjZOCmBjJAlQigURe
 env:
   - TEST_SUITE=units
 android:
