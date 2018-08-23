@@ -1,7 +1,14 @@
 #For this file, you might execute following codes after update your ignore file.
 #git rm -r --cached .
 #git add .
+
 ktlint
+!./.idea/codeStyles/codeStyleConfig.xml
+!./.idea/codeStyles/Project.xml
+!./.idea/inspectionProfiles/profiles_settings.xml
+!./.idea/inspectionProfiles/ktlint.xml
+!./.idea/workspace.xml
+
 *.iml
 .gradle
 /local.properties
