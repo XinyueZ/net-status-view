@@ -23,6 +23,8 @@ buildscript {
         kotlintest = "2.0.7"
 
         ktlintVersion = '0.24.0'
+
+        bintray = "1.8.4"
     }
 
     repositories {
@@ -32,6 +34,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradle_version"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$bintray"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
