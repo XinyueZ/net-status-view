@@ -10,7 +10,7 @@ A banner-view which can show strength of network according to different levels.
 
 ```groovy
     implementation "com.github.xinyuez:netstatusview:x.y.z"
-``
+```
 
 - Wifi
 - 2G, 3G, 4G, unknown.
