@@ -4,8 +4,13 @@ NetStatusView
 # About
 
 [![Build Status](https://travis-ci.org/XinyueZ/net-status-view.svg?branch=master)](https://travis-ci.org/XinyueZ/net-status-view)
+[ ![Download](https://api.bintray.com/packages/devxinyuezhao/NetStatusView/netstatusview/images/download.svg) ](https://bintray.com/devxinyuezhao/NetStatusView/netstatusview/_latestVersion)
 
 A banner-view which can show strength of network according to different levels. 
+
+```groovy
+    implementation "com.github.xinyuez:netstatusview:x.y.z"
+``
 
 - Wifi
 - 2G, 3G, 4G, unknown.
