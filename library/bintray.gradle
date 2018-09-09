@@ -1,0 +1,124 @@
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+
+group = mavenGroup
+version = mavenVersion
+archivesBaseName = mavenArtifactId
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += configurations.compile
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+
+    failOnError = false
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+publishing {
+    publications {
+        library(MavenPublication) {
+
+            groupId mavenGroup
+            artifactId mavenArtifactId
+            version mavenVersion
+
+            artifact "$buildDir/outputs/aar/$mavenArtifactId-release.aar"
+            artifact javadocJar
+            artifact sourcesJar
+
+            pom.withXml {
+                // Name
+                asNode().appendNode('name', projectName)
+
+                // Description
+                asNode().appendNode('description', projectDesc)
+
+                // URL
+                asNode().appendNode('url', githubUrl)
+
+                // Inception Year
+                asNode().appendNode('inceptionYear', update_year)
+
+                // Licenses
+                def license = asNode().appendNode('licenses').appendNode('license')
+                license.appendNode('name', prj_license)
+                license.appendNode('url', prj_license_url)
+                license.appendNode('distribution', 'repo')
+
+                // Developers
+                def developer = asNode().appendNode('developers').appendNode('developer')
+                developer.appendNode('name', 'DevXinyueZhao')
+
+                // SCM
+                def scm = asNode().appendNode('scm')
+                scm.appendNode('connection', githubUrl + '.git')
+                scm.appendNode('url', githubUrl)
+
+                // Dependencies
+                def dependenciesNode = asNode().getAt('dependencies')[0]
+                if (dependenciesNode == null) {
+                    dependenciesNode = asNode().appendNode('dependencies')
+                }
+
+                // Add all that are 'compile'
+                configurations.api.allDependencies.each {
+                    def dependencyNode = dependenciesNode.appendNode('dependency')
+                    dependencyNode.appendNode('groupId', it.group)
+                    dependencyNode.appendNode('artifactId', it.name)
+                    dependencyNode.appendNode('version', it.version)
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = project.hasProperty('BINTRAY_USER') ? project.BINTRAY_USER : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('BINTRAY_KEY') ? project.BINTRAY_KEY : System.getenv('BINTRAY_KEY')
+
+    filesSpec {
+        from "$buildDir/publications/library/pom-default.xml"
+        into "com/github/xinyuez/${mavenArtifactId}/${mavenVersion}/"
+        rename { String fileName ->
+            "${mavenArtifactId}-${mavenVersion}.pom"
+        }
+    }
+
+
+    configurations = [ 'archives' ]
+
+    pkg {
+        repo = projectName
+        name = mavenArtifactId
+        description = projectDesc
+        userOrg = bintrayOrg
+        licenses = [ prj_license ]
+        vcsUrl = "${githubUrl}.git"
+
+        version {
+            name = mavenVersion
+            released = new Date()
+        }
+    }
+}
+
+afterEvaluate { project ->
+    def pomTask = "generatePomFileForLibraryPublication"
+
+    // Convenience task to prepare everything we need for releases
+    task prepareArtifacts(dependsOn: [javadocJar, sourcesJar, assembleRelease, pomTask]) {}
+}

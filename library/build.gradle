@@ -16,7 +16,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
-
+        archivesBaseName = mavenArtifactId
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -93,3 +93,4 @@ dependencies {
 kapt {
     useBuildCache = true
 }
+apply from: 'bintray.gradle'

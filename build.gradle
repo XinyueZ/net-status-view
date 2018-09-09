@@ -25,6 +25,22 @@ buildscript {
         ktlintVersion = '0.24.0'
 
         bintray = "1.8.4"
+
+        projectName = 'NetStatusView'
+        projectDesc = 'A banner-view which can show strength of network according to different levels.'
+
+        githubUrl = 'https://github.com/XinyueZ/net-status-view'
+
+        mavenGroup = 'com.github.xinyuez'
+        mavenArtifactId = 'netstatusview'
+        mavenVersion = versionName
+
+        bintrayOrg = 'devxinyuezhao'
+
+        prj_license = "MIT"
+        prj_license_url = "https://github.com/XinyueZ/net-status-view#license"
+
+        update_year = "2018"
     }
 
     repositories {
