@@ -79,7 +79,7 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-    api "com.android.support.constraint:constraint-layout:$constraint"
+    implementation "com.android.support.constraint:constraint-layout:$constraint"
 
     testImplementation "junit:junit:$junit"
     testImplementation "org.robolectric:multidex:$robolectricMultidex"
