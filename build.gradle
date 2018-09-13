@@ -23,7 +23,7 @@ buildscript {
         shadowSupportLib4 = "+"
         kotlintest = "2.0.7"
 
-        ktlintVersion = '0.24.0'
+        ktlintVersion = '0.28.0'
 
         bintray = "1.8.4"
 
