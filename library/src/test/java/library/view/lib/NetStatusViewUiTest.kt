@@ -3,14 +3,14 @@ package library.view.lib
 import android.content.Context
 import android.net.wifi.WifiManager
 import android.net.wifi.WifiManager.calculateSignalLevel
-import android.support.annotation.ArrayRes
-import android.support.annotation.DimenRes
-import android.support.v4.content.res.ResourcesCompat.getColor
-import android.support.v7.content.res.AppCompatResources
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.ArrayRes
+import androidx.annotation.DimenRes
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.res.ResourcesCompat
 import io.kotlintest.properties.Gen
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -48,7 +48,7 @@ class NetStatusViewUiTest {
     private fun initUi(): NetStatusView = activity.applyView(R.id.network_status_banner) {
         netStrengthLevelRes = R.array.ic_net_strength_levels
         with(this@NetStatusViewUiTest) {
-            labelColor = getColor(
+            labelColor = ResourcesCompat.getColor(
                 resources,
                 R.color.ns_view_text_color,
                 null

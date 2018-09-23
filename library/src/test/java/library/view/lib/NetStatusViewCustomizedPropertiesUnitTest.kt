@@ -1,6 +1,6 @@
 package library.view.lib
 
-import android.support.v4.content.res.ResourcesCompat
+import androidx.core.content.res.ResourcesCompat
 import io.kotlintest.properties.Gen
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull

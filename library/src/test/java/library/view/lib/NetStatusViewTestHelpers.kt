@@ -23,12 +23,12 @@ import android.net.ConnectivityManager.TYPE_WIFI
 import android.net.NetworkInfo
 import android.net.wifi.WifiManager
 import android.os.Bundle
-import android.support.annotation.IdRes
-import android.support.v4.graphics.drawable.DrawableCompat
 import android.telephony.PhoneStateListener
 import android.telephony.SignalStrength
 import android.telephony.TelephonyManager
 import android.view.View
+import androidx.annotation.IdRes
+import androidx.core.graphics.drawable.DrawableCompat
 import io.kotlintest.properties.Gen
 import org.junit.Assert.assertNotNull
 import org.robolectric.RuntimeEnvironment

@@ -69,25 +69,24 @@ configurations.all { configuration ->
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
-    api "com.android.support:support-compat:$supportLib4"
-    api "com.android.support:support-core-utils:$supportLib4"
-    api "com.android.support:support-core-ui:$supportLib4"
-    api "com.android.support:support-media-compat:$supportLib4"
-    api("com.android.support:appcompat-v7:$supportLib7") {
-        exclude module: 'support-v4'
-    }
+    api "androidx.core:core:$supportLib4"
+    api "androidx.legacy:legacy-support-core-utils:$supportLib4"
+    api "androidx.legacy:legacy-support-core-ui:$supportLib4"
+    api "androidx.media:media:$supportLib4"
+    api "androidx.appcompat:appcompat:$supportLib7"
+
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-    implementation "com.android.support.constraint:constraint-layout:$constraint"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint"
 
     testImplementation "junit:junit:$junit"
     testImplementation "org.robolectric:multidex:$robolectricMultidex"
     testImplementation "io.kotlintest:kotlintest:$kotlintest"
     testImplementation "org.robolectric:robolectric:$robolectric"
     testImplementation "org.robolectric:shadows-support-v4:$shadowSupportLib4"
-    testImplementation "android.arch.lifecycle:extensions:$live"
-    testImplementation "android.arch.lifecycle:common-java8:$live"
+    testImplementation "androidx.lifecycle:lifecycle-extensions:$live"
+    testImplementation "androidx.lifecycle:lifecycle-common-java8:$live"
 }
 
 kapt {

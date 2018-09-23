@@ -41,9 +41,9 @@ android {
 
 dependencies {
     implementation project(':library')
-    implementation "com.android.support:design:${design}"
-    implementation "com.android.support.constraint:constraint-layout:$constraint"
-    //implementation "com.github.xinyuez:netstatusview:$mavenVersion@aar"
+    implementation "com.google.android.material:material:${design}"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint"
+   //implementation "com.github.xinyuez:netstatusview:$mavenVersion@aar"
 }
 
 kapt {

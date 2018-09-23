@@ -25,12 +25,6 @@ import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.os.Build.VERSION_CODES.M
 import android.provider.Settings.Global.AIRPLANE_MODE_ON
 import android.provider.Settings.Global.getInt
-import android.support.annotation.ArrayRes
-import android.support.annotation.ColorInt
-import android.support.annotation.DimenRes
-import android.support.annotation.IntRange
-import android.support.annotation.StringRes
-import android.support.v4.content.res.ResourcesCompat
 import android.telephony.PhoneStateListener
 import android.telephony.PhoneStateListener.LISTEN_DATA_ACTIVITY
 import android.telephony.PhoneStateListener.LISTEN_DATA_CONNECTION_STATE
@@ -60,6 +54,12 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.ArrayRes
+import androidx.annotation.ColorInt
+import androidx.annotation.DimenRes
+import androidx.annotation.IntRange
+import androidx.annotation.StringRes
+import androidx.core.content.res.ResourcesCompat
 import library.view.lib.NetStatusView.Companion.NET_2G
 import library.view.lib.NetStatusView.Companion.NET_3G
 import library.view.lib.NetStatusView.Companion.NET_4G
