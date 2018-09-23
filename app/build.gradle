@@ -43,7 +43,7 @@ dependencies {
     implementation project(':library')
     implementation "com.google.android.material:material:${design}"
     implementation "androidx.constraintlayout:constraintlayout:$constraint"
-   //implementation "com.github.xinyuez:netstatusview:$mavenVersion@aar"
+    //implementation "com.github.xinyuez:netstatusview:$mavenVersion@aar"
 }
 
 kapt {
